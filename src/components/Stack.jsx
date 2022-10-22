@@ -26,7 +26,7 @@ class Stack extends Component {
                         environment in which Java code can run.
                     </p>
                 </div>
-                <div class='row mx-1'>
+                <div className='row mx-1'>
                     <FeatureTag />
                     <FeatureTag />
                     <FeatureTag />

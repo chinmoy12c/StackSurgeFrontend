@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
+
 import { LOGIN_URL, REGISTER_URL } from '../config/AppConstants';
 
 class LoginRegisterForm extends Component {
 
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    }
+
     state = {
         buttonText: 'Login',
-        apiEndPoint: { LOGIN_URL },
+        apiEndPoint: LOGIN_URL,
         emailValue: '',
         passwordValue: '',
     }
@@ -19,7 +27,7 @@ class LoginRegisterForm extends Component {
     getRegisterState = () => {
         let state = { ...this.state };
         state.buttonText = 'Register';
-        state.apiEndPoint = { REGISTER_URL }
+        state.apiEndPoint = REGISTER_URL
         return state;
     }
 
@@ -33,7 +41,30 @@ class LoginRegisterForm extends Component {
     makeRequest = async () => {
         const email = this.state.emailValue;
         const pass = this.state.passwordValue;
-        console.log(this.state);
+        if (email === '' || pass === '') return;
+        console.log(this.state.apiEndPoint);
+        const response = await axios.post(this.state.apiEndPoint, {
+            'email': email,
+            'password': pass
+        },
+        {
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            }
+        });
+        
+        //TODO: handle failed requests
+        if (response.data.error == null) {
+            const {cookies} = this.props;
+            cookies.set('authToken', response.data.response, {sameSite: 'Strict'});
+            window.location = '/'
+        }
+        else {
+            //TODO: handle this
+            console.log(response.data.error);
+        }
     }
 
     render() {
@@ -54,12 +85,12 @@ class LoginRegisterForm extends Component {
                             <input type='checkbox' className='form-check-input' id='rememberMeCheck' />
                             <label className='form-check-label' htmlFor='rememberMeCheck'>Remember me</label>
                         </div>
-                        <button type='submit' className='btn btn-primary mb-4 ml-3 px-5' onClick={this.makeRequest}>{this.state.buttonText}</button>
                     </form>
+                    <button className='btn btn-primary mb-4 ml-3 px-5' onClick={this.makeRequest}>{this.state.buttonText}</button>
                 </div>
             </div>
         );
     }
 }
 
-export default LoginRegisterForm;
+export default withCookies(LoginRegisterForm);

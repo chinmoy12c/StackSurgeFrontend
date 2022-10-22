@@ -10,7 +10,7 @@ class UserInstance extends Component {
     render() {
         return (
             <div className='card col-lg-10 col-sm-5 mb-3 mr-3'>
-                <img class='mt-2' src={instanceBack}/>
+                <img className='mt-2' src={instanceBack}/>
                 <StackTag />
                 <h5 className='mt-2'>Tomstack</h5>
                 <p>Uptime: 1d 13h</p>

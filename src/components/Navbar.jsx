@@ -19,7 +19,7 @@ class Navbar extends Component {
                         <span className='mr-auto' />
                         <ul className='navbar-nav'>
                             <li className="nav-item active">
-                                <a className="nav-link" href="#">Logout <span class="sr-only">(current)</span></a>
+                                <a className="nav-link" href="#">Logout <span className="sr-only">(current)</span></a>
                             </li>
                         </ul>
                     </div>
