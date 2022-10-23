@@ -5,6 +5,7 @@ export const REGISTER_URL = SERVER_URL + "/processRegister";
 export const STACK_URL = SERVER_URL + "/getAvailableStacks";
 export const USER_INSTANCES_URL = SERVER_URL + '/getUserInstances';
 export const STOP_INSTANCE_URL = SERVER_URL + '/stopInstance';
+export const LAUNCH_INSTANCE_URL = SERVER_URL + '/launchInstance';
 
 export const HEADERS = {
     Accept: 'application/json',

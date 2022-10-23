@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 
 import tomstackTag from '../res/images/tomstack.jpeg';
+import codestackTag from '../res/images/codestack.png';
+import baseSystemTag from '../res/images/base-system.jpg';
 
 class StackTag extends Component {
     state = {  }
@@ -15,9 +17,15 @@ class StackTag extends Component {
         height: '70px'
     }
 
-    render() { 
+    resolveIcon = (codename) => {
+        if (codename === 'TOM') return tomstackTag;
+        else if (codename === 'CODE') return codestackTag;
+        else return baseSystemTag;
+    }
+
+    render() {
         return (
-            <img className='card' style={this.tagStyle} src={tomstackTag} />
+            <img className='card' style={this.tagStyle} src={this.resolveIcon(this.props.codename)} />
         );
     }
 }
