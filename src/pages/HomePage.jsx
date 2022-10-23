@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import {withCookies, Cookies} from 'react-cookie';
-import {instanceOf} from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 
 import Navbar from '../components/Navbar';
 import StackList from '../components/StackList';
 
 import UserInstancesList from '../components/UserInstancesList';
+import Loader from '../components/Loader';
 
 class HomePage extends Component {
     static propTypes = {
@@ -14,7 +15,7 @@ class HomePage extends Component {
 
     constructor(props) {
         super(props);
-        const {cookies} = this.props;
+        const { cookies } = this.props;
         this.state = {
             shouldRender: false,
             shouldRedirect: !cookies.get('authToken')
@@ -22,11 +23,11 @@ class HomePage extends Component {
     }
 
     componentDidMount() {
-        const {shouldRedirect} = this.state;
+        const { shouldRedirect } = this.state;
         if (shouldRedirect)
             window.location = '/login';
         else
-            this.setState({shouldRender: true});
+            this.setState({ shouldRender: true });
     }
 
     render() {

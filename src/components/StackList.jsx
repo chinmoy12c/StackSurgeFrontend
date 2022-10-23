@@ -3,10 +3,12 @@ import axios from 'axios';
 
 import Stack from './Stack';
 import { HEADERS, STACK_URL } from '../config/AppConstants';
+import Loader from './Loader';
 
 class StackList extends Component {
     state = {
-        stacks: []
+        stacks: [],
+        isLoading: true
     }
 
     componentDidMount() {
@@ -17,7 +19,7 @@ class StackList extends Component {
         const response = await axios.post(STACK_URL, {}, { headers: HEADERS });
         if (response.data.success) {
             const availableStacks = JSON.parse(response.data.response);
-            this.setState({ stacks: availableStacks });
+            this.setState({ stacks: availableStacks, isLoading: false });
         }
         else {
             //TODO: handle this
@@ -29,12 +31,14 @@ class StackList extends Component {
         return (
             <div className='col-md-12'>
                 <div className='mt-3'>
-                    <h5 className='text-center'>Choose your stack</h5>
+                    <h4 className='text-center'>Choose your stack</h4>
                     <hr className='col-md-10' />
                 </div>
-                <div className='row flex-d justify-content-center'>
-                    {this.state.stacks.map(stack => <Stack key={stack.id} stack={stack}/>)}
-                </div>
+                {(this.state.isLoading && <Loader />) ||
+                    <div className='row flex-d justify-content-center'>
+                        {this.state.stacks.map(stack => <Stack key={stack.id} stack={stack} />)}
+                    </div>
+                }
             </div>
         );
     }

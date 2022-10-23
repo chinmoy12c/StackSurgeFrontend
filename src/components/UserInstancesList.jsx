@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import {withCookies, Cookies} from 'react-cookie';
+import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import axios from 'axios';
 
 import UserInstance from './UserInstance';
 import { HEADERS, USER_INSTANCES_URL } from '../config/AppConstants';
+import Loader from './Loader';
 
 class UserInstancesList extends Component {
 
@@ -13,7 +14,8 @@ class UserInstancesList extends Component {
     }
 
     state = {
-        instances: []
+        instances: [],
+        isLoading: true
     }
 
     componentDidMount() {
@@ -26,13 +28,13 @@ class UserInstancesList extends Component {
     }
 
     getUserInstances = async () => {
-        const {cookies} = this.props;
+        const { cookies } = this.props;
         const response = await axios.post(USER_INSTANCES_URL, {
             'jwt': cookies.get('authToken', '')
-        }, {headers: HEADERS});
+        }, { headers: HEADERS });
 
         if (response.data.success) {
-            this.setState({ instances: JSON.parse(response.data.response) });
+            this.setState({ instances: JSON.parse(response.data.response), isLoading: false });
             console.log(response.data.response);
         }
         else {
@@ -49,12 +51,14 @@ class UserInstancesList extends Component {
         return (
             <div>
                 <div className='mt-3'>
-                    <h5 className='text-center'>Running Instances</h5>
+                    <h4 className='text-center'>Running Instances</h4>
                     <hr className='col-lg-8'></hr>
                 </div>
-                <div className='row d-flex justify-content-center'>
-                    {this.state.instances.map(instance => <UserInstance key={instance.id} instance={instance} onDelete={this.onInstanceDelete} />)}
-                </div>
+                {(this.state.isLoading && <Loader />) ||
+                    <div className='row d-flex justify-content-center'>
+                        {this.state.instances.map(instance => <UserInstance key={instance.id} instance={instance} onDelete={this.onInstanceDelete} />)}
+                    </div>
+                }
             </div>
         );
     }

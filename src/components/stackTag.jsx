@@ -5,7 +5,6 @@ import codestackTag from '../res/images/codestack.png';
 import baseSystemTag from '../res/images/base-system.jpg';
 
 class StackTag extends Component {
-    state = {  }
 
     tagStyle = {
         borderRadius: '50%',
@@ -13,8 +12,8 @@ class StackTag extends Component {
         position: 'absolute',
         top: '20px',
         left: '1.25rem',
-        width: '70px',
-        height: '70px'
+        width: '6em',
+        height: '6em'
     }
 
     resolveIcon = (codename) => {
