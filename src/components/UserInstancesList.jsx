@@ -33,6 +33,7 @@ class UserInstancesList extends Component {
 
         if (response.data.success) {
             this.setState({ instances: JSON.parse(response.data.response) });
+            console.log(response.data.response);
         }
         else {
             //TODO: Handle error

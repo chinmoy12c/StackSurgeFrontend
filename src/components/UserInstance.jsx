@@ -39,7 +39,7 @@ class UserInstance extends Component {
                 <img className='mt-2' src={instanceBack}/>
                 <StackTag />
                 <h5 className='mt-2 text-capitalize'>{this.props.instance.techStack.name}</h5>
-                <p>Uptime: 1d 13h</p>
+                <p>Created on: {this.props.instance.creationTimeRep}</p>
                 <button className='btn btn-primary mb-2' onClick={this.connectInstance}>Connect</button>
                 <button className='btn btn-primary mb-2' onClick={this.terminateInstance}>Terminate</button>
             </div>
