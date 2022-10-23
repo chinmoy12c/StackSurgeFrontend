@@ -3,7 +3,7 @@ import axios from 'axios';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 
-import { LOGIN_URL, REGISTER_URL } from '../config/AppConstants';
+import { LOGIN_URL, REGISTER_URL, HEADERS } from '../config/AppConstants';
 
 class LoginRegisterForm extends Component {
 
@@ -42,23 +42,15 @@ class LoginRegisterForm extends Component {
         const email = this.state.emailValue;
         const pass = this.state.passwordValue;
         if (email === '' || pass === '') return;
-        console.log(this.state.apiEndPoint);
         const response = await axios.post(this.state.apiEndPoint, {
             'email': email,
             'password': pass
-        },
-        {
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-            }
-        });
-        
+        }, { headers: HEADERS });
+
         //TODO: handle failed requests
         if (response.data.error == null) {
-            const {cookies} = this.props;
-            cookies.set('authToken', response.data.response, {sameSite: 'Strict'});
+            const { cookies } = this.props;
+            cookies.set('authToken', response.data.response, { sameSite: 'Strict' });
             window.location = '/'
         }
         else {
