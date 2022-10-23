@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
 
 class Navbar extends Component {
-    state = {}
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    }
+
+    logout = () => {
+        const { cookies } = this.props;
+        cookies.remove('authToken');
+        window.location = '/';
+    }
+
     render() {
         return (
             <div>
@@ -19,7 +30,7 @@ class Navbar extends Component {
                         <span className='mr-auto' />
                         <ul className='navbar-nav'>
                             <li className="nav-item active">
-                                <a className="nav-link" href="#">Logout <span className="sr-only">(current)</span></a>
+                                <a className="nav-link" href="#" onClick={this.logout}>Logout <span className="sr-only">(current)</span></a>
                             </li>
                         </ul>
                     </div>
@@ -29,4 +40,4 @@ class Navbar extends Component {
     }
 }
 
-export default Navbar;
+export default withCookies(Navbar);
