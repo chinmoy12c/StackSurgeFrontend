@@ -29,6 +29,10 @@ class UserInstance extends Component {
         }
         else {
             //TODO: handle this
+            if (response.data.statusCode == '401') {
+                cookies.remove('authToken');
+                window.location = '/login';
+            }
             console.log(response.data.error);
         }
     }
@@ -37,7 +41,7 @@ class UserInstance extends Component {
         return (
             <div className='card col-lg-10 col-sm-5 mb-3 mr-3'>
                 <img className='mt-2' src={instanceBack}/>
-                <StackTag />
+                <StackTag codename={this.props.instance.techStack.codename}/>
                 <h5 className='mt-2 text-capitalize'>{this.props.instance.techStack.name}</h5>
                 <p>Created on: {this.props.instance.creationTimeRep}</p>
                 <button className='btn btn-primary mb-2' onClick={this.connectInstance}>Connect</button>

@@ -11,7 +11,7 @@ class StackTag extends Component {
         borderRadius: '50%',
         boxShadow: '0 0 15px rgba(10, 10, 10, 0.3)',
         position: 'absolute',
-        top: '70px',
+        top: '20px',
         left: '1.25rem',
         width: '70px',
         height: '70px'
