@@ -52,7 +52,7 @@ class UserInstance extends Component {
                 {this.state.isLoading && <Loader absolute={true} />}
                 <h5 className='mt-2 text-capitalize'>{this.props.instance.techStack.name}</h5>
                 <p>Created on: {this.props.instance.creationTimeRep}</p>
-                <button className='btn btn-primary mb-2' onClick={this.connectInstance}>Connect</button>
+                <button className={`btn btn-primary mb-2 ${this.state.isLoading ? 'disabled' : ''}`} onClick={this.connectInstance}>Connect</button>
                 <button className={`btn btn-primary mb-2 ${this.state.isLoading ? 'disabled' : ''}`} onClick={this.terminateInstance}>Terminate</button>
             </div>
         );

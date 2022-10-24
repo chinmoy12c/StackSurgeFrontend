@@ -16,6 +16,7 @@ class LoginRegisterForm extends Component {
         apiEndPoint: LOGIN_URL,
         emailValue: '',
         passwordValue: '',
+        isLoading: false
     }
 
     constructor(props) {
@@ -38,7 +39,8 @@ class LoginRegisterForm extends Component {
             this.setState({ passwordValue: event.target.value.trim() });
     }
 
-    makeRequest = async () => {
+    makeLoginRequest = async () => {
+        this.setState({ isLoading: true });
         const email = this.state.emailValue;
         const pass = this.state.passwordValue;
         if (email === '' || pass === '') return;
@@ -78,7 +80,7 @@ class LoginRegisterForm extends Component {
                             <label className='form-check-label' htmlFor='rememberMeCheck'>Remember me</label>
                         </div>
                     </form>
-                    <button className='btn btn-primary mb-4 ml-3 px-5' onClick={this.makeRequest}>{this.state.buttonText}</button>
+                    <button className={`btn btn-primary mb-4 ml-3 px-5 ${this.state.isLoading ? 'disabled' : ''}`} onClick={this.makeLoginRequest}>{this.state.buttonText}</button>
                 </div>
             </div>
         );

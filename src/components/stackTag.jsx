@@ -12,8 +12,8 @@ class StackTag extends Component {
         position: 'absolute',
         top: '20px',
         left: '1.25rem',
-        width: '6em',
-        height: '6em'
+        width: '5em',
+        height: '5em'
     }
 
     resolveIcon = (codename) => {

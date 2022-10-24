@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 class Loader extends Component {
 
     spinnerStyle = {
-        width: '6em',
-        height: '6em',
+        width: '5em',
+        height: '5em',
         color: '#223399',
         zIndex: 100
     }
