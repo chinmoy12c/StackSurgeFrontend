@@ -20,6 +20,7 @@ class StackList extends Component {
         if (response.data.success) {
             const availableStacks = JSON.parse(response.data.response);
             this.setState({ stacks: availableStacks, isLoading: false });
+            console.log(availableStacks);
         }
         else {
             //TODO: handle this

@@ -19,10 +19,12 @@ class UserInstance extends Component {
     }
 
     connectInstance = () => {
+        if (this.state.isLoading) return;
         window.open(`${SERVER_IP}:${this.props.instance.port}/vnc.html?resize=remote&host=127.0.0.1`, '_blank');
     }
 
     terminateInstance = async () => {
+        if (this.state.isLoading) return;
         this.setState({ isLoading: true });
         const { cookies } = this.props;
         const response = await axios.post(STOP_INSTANCE_URL, {

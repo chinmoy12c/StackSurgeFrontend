@@ -18,7 +18,7 @@ class FeatureTag extends Component {
 
     render() {
         return (
-            <span className='badge badge-primary px-2 mx-2 mb-2'>Tomcat</span>
+            <span className='badge badge-primary px-2 mx-2 mb-2 text-capitalize'>{this.props.name}</span>
         );
     }
 }

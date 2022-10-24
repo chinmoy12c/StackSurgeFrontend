@@ -24,6 +24,7 @@ class Stack extends Component {
     }
 
     launchStack = async () => {
+        if (this.state.isLoading) return;
         this.setState({ isLoading: true });
         const { cookies } = this.props;
         const response = await axios.post(`${LAUNCH_INSTANCE_URL}/${this.props.stack.codename}`, {
@@ -56,11 +57,7 @@ class Stack extends Component {
                     <p className="card-text small">{this.props.stack.description}</p>
                 </div>
                 <div className='row mx-1'>
-                    <FeatureTag />
-                    <FeatureTag />
-                    <FeatureTag />
-                    <FeatureTag />
-                    <FeatureTag />
+                    {this.props.stack.features.map((feature) => <FeatureTag name={feature.featureName}/>)}
                 </div>
                 <button className={`btn btn-primary mb-2 ${this.state.isLoading ? 'disabled' : ''}`} onClick={this.launchStack}>Launch</button>
             </div>
